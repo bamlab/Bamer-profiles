@@ -4,11 +4,24 @@ import React from 'react';
 
 describe('Profile', () => {
   it('should display correct name, email, phone number, github handle', () => {
-    const { getByText } = render(<Profile />);
+    const name = 'Julien L';
+    const githubHandle = 'marsrover';
+    const phoneNumber = '939723793';
+    const email = 'jl@bam.tech';
 
-    expect(getByText('Name: Julien L')).toBeTruthy();
-    expect(getByText('Email: jl@bam.tech')).toBeTruthy();
-    expect(getByText('Phone Number: 01010290309')).toBeTruthy();
-    expect(getByText('Github handle: @marsrover')).toBeTruthy();
+    const { getByText } = render(
+      <Profile
+        route={{
+          params: { name, phoneNumber, email, githubHandle },
+          name: 'Profile',
+          key: 'Profile',
+        }}
+      />,
+    );
+
+    expect(getByText('Name: ' + name)).toBeTruthy();
+    expect(getByText('Email: ' + email)).toBeTruthy();
+    expect(getByText('Phone Number: ' + phoneNumber)).toBeTruthy();
+    expect(getByText('Github handle: ' + githubHandle)).toBeTruthy();
   });
 });

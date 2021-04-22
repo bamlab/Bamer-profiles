@@ -1,14 +1,30 @@
+import { RouteProp } from '@react-navigation/core';
 import React from 'react';
 import { View, Text } from 'react-native';
 
-export const Profile = () => {
+type RootStackParamList = {
+  Profile: {
+    name: string;
+    githubHandle: string;
+    phoneNumber: string;
+    email: string;
+  };
+};
+
+type Props = {
+  route: RouteProp<RootStackParamList, 'Profile'>;
+};
+
+export const Profile = ({ route: { params } }: Props) => {
+  const { name, email, phoneNumber, githubHandle } = params;
+
   return (
     <View>
       <Text>Detailed Profile</Text>
-      <Text>Name: Julien L</Text>
-      <Text>Email: jl@bam.tech</Text>
-      <Text>Phone Number: 01010290309</Text>
-      <Text>Github handle: @marsrover</Text>
+      <Text>Name: {name}</Text>
+      <Text>Email: {email}</Text>
+      <Text>Phone Number: {phoneNumber}</Text>
+      <Text>Github handle: {githubHandle}</Text>
     </View>
   );
 };

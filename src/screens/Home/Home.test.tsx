@@ -2,13 +2,33 @@ import { fireEvent, render, waitFor } from '@testing-library/react-native';
 import React from 'react';
 import { Home } from './Home';
 import nock from 'nock';
+import { BamerProfile } from '../../types';
 
-const mockBamerProfiles = [
-  'Alix B',
-  'Julien P',
-  'Alice A',
-  'Louis Z',
-  'Yann L',
+const julienProfile = {
+  name: 'Julien G',
+  email: 'julieng@bam.tech',
+  phoneNumber: '973293790732',
+  githubHandle: '@jul',
+};
+
+const alixProfile = {
+  name: 'Alix B',
+  email: 'alix@bam.tech',
+  phoneNumber: '98298298',
+  githubHandle: '@lyx',
+};
+
+const guillaumeProfile = {
+  name: 'Guillaume G',
+  email: 'gui@bam.tech',
+  phoneNumber: '9872873987',
+  githubHandle: '@guig',
+};
+
+const mockBamerProfiles: BamerProfile[] = [
+  alixProfile,
+  julienProfile,
+  guillaumeProfile,
 ];
 
 const mockNavigate = jest.fn();
@@ -28,10 +48,8 @@ describe('Home', () => {
 
     await waitFor(() => {
       expect(getByText('Alix B')).toBeTruthy();
-      expect(getByText('Julien P')).toBeTruthy();
-      expect(getByText('Alice A')).toBeTruthy();
-      expect(getByText('Louis Z')).toBeTruthy();
-      expect(getByText('Yann L')).toBeTruthy();
+      expect(getByText('Julien G')).toBeTruthy();
+      expect(getByText('Guillaume G')).toBeTruthy();
     });
   });
 
@@ -41,9 +59,9 @@ describe('Home', () => {
       .reply(200, { profiles: mockBamerProfiles });
 
     const { findByText } = render(<Home />);
-    const NameButton = await findByText('Julien P');
+    const NameButton = await findByText(julienProfile.name);
     fireEvent.press(NameButton);
 
-    expect(mockNavigate).toHaveBeenCalledWith('Profile', { name: 'Julien P' });
+    expect(mockNavigate).toHaveBeenCalledWith('Profile', julienProfile);
   });
 });

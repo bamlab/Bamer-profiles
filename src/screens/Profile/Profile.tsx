@@ -1,14 +1,10 @@
 import { RouteProp } from '@react-navigation/core';
 import React from 'react';
 import { View, Text } from 'react-native';
+import { BamerProfile } from '../../types';
 
 type RootStackParamList = {
-  Profile: {
-    name: string;
-    githubHandle: string;
-    phoneNumber: string;
-    email: string;
-  };
+  Profile: BamerProfile;
 };
 
 type Props = {

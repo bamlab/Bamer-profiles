@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Text, FlatList, ListRenderItem } from 'react-native';
+import { Text, FlatList, ListRenderItem, TouchableOpacity } from 'react-native';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/core';
 
 export const Home = () => {
   const [profiles, setProfiles] = useState();
+  const { navigate } = useNavigation();
 
   useEffect(() => {
     axios
@@ -12,7 +14,9 @@ export const Home = () => {
   }, []);
 
   const renderProfile: ListRenderItem<string> = ({ item }) => (
-    <Text>{item}</Text>
+    <TouchableOpacity onPress={() => navigate('Profile', { name: 'Julien P' })}>
+      <Text>{item}</Text>
+    </TouchableOpacity>
   );
 
   const extractKey = (item: string) => item;

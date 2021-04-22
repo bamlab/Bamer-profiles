@@ -1,14 +1,20 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text, FlatList, ListRenderItem } from 'react-native';
 
 export const Home = () => {
+  const profiles = ['Alix B', 'Julien P', 'Alice A', 'Louis Z', 'Yann L'];
+
+  const renderProfile: ListRenderItem<string> = ({ item }) => (
+    <Text>{item}</Text>
+  );
+
+  const extractKey = (item: string) => item;
+
   return (
-    <View>
-      <Text>Alix B</Text>
-      <Text>Julien P</Text>
-      <Text>Alice A</Text>
-      <Text>Louis Z</Text>
-      <Text>Yann L</Text>
-    </View>
+    <FlatList
+      data={profiles}
+      keyExtractor={extractKey}
+      renderItem={renderProfile}
+    />
   );
 };

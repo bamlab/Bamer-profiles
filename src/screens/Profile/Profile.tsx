@@ -19,17 +19,17 @@ export const Profile = ({ route: { params } }: Props) => {
   const [ghRepos, setGhRepos] = useState<
     { link: string; nbStars: number; name: string }[]
   >();
-
   // 2 most popular repos (most starred)
   const [popularRepos, setPopularRepos] = useState<
     { link: string; nbStars: number; name: string }[]
   >([]);
 
   useEffect(() => {
+    // fetch the github repositories of the candidate
     axios
       .get('https://github/api/' + githubHandle + '/repos/')
       .then(res => setGhRepos(res.data.repos));
-  });
+  }, []);
 
   useEffect(() => {
     // compute 2 most popular repos
@@ -56,14 +56,15 @@ export const Profile = ({ route: { params } }: Props) => {
       <Text style={{ fontSize: 20, marginBottom: 10, paddingTop: 20 }}>
         2 most popular repositories
       </Text>
-      {popularRepos.map(repo => (
+      {popularRepos.map(repo => {
         <TouchableOpacity onPress={() => Linking.openURL(repo.link)}>
           <View style={{ backgroundColor: '#ccc', borderColor: '#333' }}>
             <Text>{repo.name}</Text>
             <Text>{repo.nbStars}</Text>
+            <Text>{repo.link}</Text>
           </View>
-        </TouchableOpacity>
-      ))}
+        </TouchableOpacity>;
+      })}
     </View>
   );
 };

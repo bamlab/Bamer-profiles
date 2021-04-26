@@ -61,7 +61,6 @@ export const Profile = ({ route: { params } }: Props) => {
           <View style={{ backgroundColor: '#ccc', borderColor: '#333' }}>
             <Text>{repo.name}</Text>
             <Text>{repo.nbStars}</Text>
-            <Text>{repo.link}</Text>
           </View>
         </TouchableOpacity>;
       })}

@@ -18,6 +18,9 @@ export const Profile = ({ route: { params } }: Props) => {
   const [repos, setRepos] = useState<
     { link: string; nbStars: number; name: string }[]
   >();
+  const [popularRepos, setPopularRepos] = useState<
+    { link: string; nbStars: number; name: string }[]
+  >([]);
 
   useEffect(() => {
     // fetch the github repositories of the candidate
@@ -25,6 +28,13 @@ export const Profile = ({ route: { params } }: Props) => {
       .get('https://github/api/' + githubHandle + '/repos/')
       .then(res => setRepos(res.data.repos));
   }, []);
+
+  useEffect(() => {
+    if (repos) {
+      const orderedReposByStar = repos.sort((a, b) => b.nbStars - a.nbStars);
+      setPopularRepos([orderedReposByStar[0], orderedReposByStar[1]]);
+    }
+  }, [repos]);
 
   return (
     <View>
@@ -35,6 +45,14 @@ export const Profile = ({ route: { params } }: Props) => {
 
       <Text>Github handle: {githubHandle}</Text>
       <Text>Number of repositories: {repos?.length}</Text>
+
+      {popularRepos.map(repo => (
+        <View style={{ backgroundColor: '#ccc', borderColor: '#333' }}>
+          <Text>{repo.name}</Text>
+          <Text>{repo.nbStars}</Text>
+          <Text>{repo.link}</Text>
+        </View>
+      ))}
     </View>
   );
 };

@@ -15,7 +15,7 @@ type Props = {
 
 export const Profile = ({ route: { params } }: Props) => {
   const { name, email, phoneNumber, githubHandle } = params;
-  // gh -> github
+
   const [ghRepos, setGhRepos] = useState<
     { link: string; nbStars: number; name: string }[]
   >();

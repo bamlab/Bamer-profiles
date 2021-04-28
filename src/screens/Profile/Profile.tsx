@@ -16,7 +16,7 @@ type Props = {
 export const Profile = ({ route: { params } }: Props) => {
   const { name, email, phoneNumber, githubHandle } = params;
 
-  const [ghRepos, setGhRepos] = useState<
+  const [repos, setRepos] = useState<
     { link: string; nbStars: number; name: string }[]
   >();
   // 2 most popular repos (most starred)
@@ -28,16 +28,16 @@ export const Profile = ({ route: { params } }: Props) => {
     // fetch the github repositories of the candidate
     axios
       .get('https://github/api/' + githubHandle + '/repos/')
-      .then(res => setGhRepos(res.data.repos));
+      .then(res => setRepos(res.data.repos));
   }, []);
 
   useEffect(() => {
     // compute 2 most popular repos
-    if (ghRepos) {
-      const orderedReposByStar = ghRepos.sort((a, b) => b.nbStars - a.nbStars);
+    if (repos) {
+      const orderedReposByStar = repos.sort((a, b) => b.nbStars - a.nbStars);
       setPopularRepos([orderedReposByStar[0], orderedReposByStar[1]]);
     }
-  }, [ghRepos]);
+  }, [repos]);
 
   const textStyle = { fontSize: 16, color: 'black' };
 
@@ -51,7 +51,7 @@ export const Profile = ({ route: { params } }: Props) => {
 
       {/* Github info */}
       <Text style={textStyle}>Github handle: {githubHandle}</Text>
-      <Text style={textStyle}>Number of repositories: {ghRepos?.length}</Text>
+      <Text style={textStyle}>Number of repositories: {repos?.length}</Text>
 
       <Text style={{ fontSize: 20, marginBottom: 10, paddingTop: 20 }}>
         2 most popular repositories

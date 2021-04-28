@@ -1,7 +1,8 @@
 import { RouteProp } from '@react-navigation/core';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Linking } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { BamerProfile } from '../../types';
 
 type RootStackParamList = {
@@ -36,22 +37,26 @@ export const Profile = ({ route: { params } }: Props) => {
     }
   }, [repos]);
 
+  const textStyle = { fontSize: 20, color: 'grey' };
+
   return (
     <View>
       <Text>Detailed Profile</Text>
-      <Text>Name: {name}</Text>
-      <Text>Email: {email}</Text>
-      <Text>Phone Number: {phoneNumber}</Text>
+      <Text style={textStyle}>Name: {name}</Text>
+      <Text style={textStyle}>Email: {email}</Text>
+      <Text style={textStyle}>Phone Number: {phoneNumber}</Text>
 
-      <Text>Github handle: {githubHandle}</Text>
-      <Text>Number of repositories: {repos?.length}</Text>
+      <Text style={textStyle}>Github handle: {githubHandle}</Text>
+      <Text style={textStyle}>Number of repositories: {repos?.length}</Text>
 
       {popularRepos.map(repo => (
-        <View style={{ backgroundColor: '#ccc', borderColor: '#333' }}>
-          <Text>{repo.name}</Text>
-          <Text>{repo.nbStars}</Text>
-          <Text>{repo.link}</Text>
-        </View>
+        <TouchableOpacity onPress={() => Linking.openURL(repo.link)}>
+          <View style={{ backgroundColor: '#ccc', borderColor: '#333' }}>
+            <Text style={textStyle}>{repo.name}</Text>
+            <Text style={textStyle}>{repo.nbStars}</Text>
+            <Text style={textStyle}>{repo.link}</Text>
+          </View>
+        </TouchableOpacity>
       ))}
     </View>
   );

@@ -1,12 +1,6 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import { AppNavigator } from './src/navigation/AppNavigator';
 
-const App = () => {
-  return (
-    <SafeAreaView>
-      <Text>Bam Devs Profiles</Text>
-    </SafeAreaView>
-  );
-};
+const App = () => <AppNavigator />;
 
 export default App;

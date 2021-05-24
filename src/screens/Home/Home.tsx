@@ -3,6 +3,8 @@ import { Text, FlatList, ListRenderItem, TouchableOpacity } from 'react-native';
 import { BamerProfile } from '../../types';
 import { useHome } from './useHome';
 
+const extractKey = (item: BamerProfile) => item.name;
+
 export const Home = () => {
   const { profiles, navigate } = useHome();
 
@@ -11,8 +13,6 @@ export const Home = () => {
       <Text>{profile.name}</Text>
     </TouchableOpacity>
   );
-
-  const extractKey = (item: BamerProfile) => item.name;
 
   return (
     <FlatList

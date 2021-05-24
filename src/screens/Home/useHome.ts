@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { getProfiles } from '../../modules/profile/controller';
 import { BamerProfile } from '../../types';
 
 export const useHome = () => {
@@ -8,9 +8,7 @@ export const useHome = () => {
   const { navigate } = useNavigation();
 
   useEffect(() => {
-    axios
-      .get('https://www.bam/profiles')
-      .then(response => setProfiles(response.data.profiles));
+    getProfiles(setProfiles);
   }, []);
 
   return {
